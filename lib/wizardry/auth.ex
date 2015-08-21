@@ -12,7 +12,7 @@ defmodule Wizardry.Auth do
   end
 
   def strong_password?(password) do
-    Password.strong_password?(password, @password_strength_options)
+    Password.strong_password?(password, Config.password_options)
   end
 
   def generate_password(length \\ 12) do

@@ -1,1 +1,2 @@
-%{"comeonin": {:hex, :comeonin, "1.1.2"}}
+%{"comeonin": {:hex, :comeonin, "1.1.2"},
+  "plug": {:hex, :plug, "1.0.0"}}

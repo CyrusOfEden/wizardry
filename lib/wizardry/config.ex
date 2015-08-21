@@ -1,9 +1,9 @@
 defmodule Wizardry.Config do
-  @defaults [session_key: :current_user,
-             hashing_algorithm: :pbkdf2,
-             password_field: :password_hash,
-             password_strength_options: []]
-  @config Keyword.merge(@defualts, Application.get_env(:wizardry, :config))
+  @config Keyword.merge([session_key: :current_user,
+                         hashing_algorithm: :pbkdf2,
+                         password_field: :password_hash,
+                         password_strength_options: []],
+                         Application.get_env(:wizardry, :config) || [])
 
   def config, do: @config
   def algorithm, do: Keyword.get(@config, :hashing_algorithm)

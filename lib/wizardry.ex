@@ -10,7 +10,7 @@ defmodule Wizardry do
 
     conn
     |> assign_param(Config.session_key)
-    |> authenticate(Config.session_key, opts[:authenticate])
+    |> authenticate(Config.session_key, options[:authenticate])
   end
 
   defp assign_param(conn, param) do
