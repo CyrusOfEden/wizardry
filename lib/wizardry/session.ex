@@ -1,6 +1,8 @@
 defmodule Wizardry.Session do
   import Plug.Conn
 
+  alias Wizardry.Config
+
   def login(conn, user) do
     fetch_session(conn) |> create_session(user)
   end
