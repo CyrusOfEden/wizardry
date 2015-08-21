@@ -16,7 +16,7 @@ defmodule Wizardry do
   defp assign_param(conn, param) do
     case get_session(conn, param) do
       nil   -> conn
-      value -> assign(conn, param, user)
+      value -> assign(conn, param, value)
     end
   end
 
