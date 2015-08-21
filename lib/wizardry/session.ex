@@ -1,6 +1,7 @@
 defmodule Wizardry.Session do
   import Plug.Conn
 
+  @config Application.get_env(:wizardry, :config)
   @password_field Keyword.get(@config, :password_field)
 
   def login(conn, user) do
