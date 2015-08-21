@@ -1,22 +1,14 @@
 defmodule Wizardry.Auth do
   alias Comeonin.Password
-
-  # Config
-  @config Application.get_env(:wizardry, :config)
-
-  @algorithm Keyword.get(@config, :hashing_algorithm)
-  @password_field Keyword.get(@config, :password_field)
-  @password_strength_options Keyword.get(@config, :password_strength_options)
-
-  @derivation Module.concat(Comeonin, String.capitalize(Atom.to_string(@algorithm)))
+  alias Wizardry.Config
 
   # API
   def hash(password) do
-    @derivation.hashpwsalt(password)
+    Config.derivation.hashpwsalt(password)
   end
 
   def check(password, hash) do
-    @derivation.checkpw(password, hash)
+    Config.derivation.checkpw(password, hash)
   end
 
   def strong_password?(password) do
@@ -31,12 +23,12 @@ defmodule Wizardry.Auth do
   def process(params = %{"password" => password}, check) do
     params
     |> Map.delete("password")
-    |> process_map(password, Atom.to_string(@password_field), check)
+    |> process_map(password, Atom.to_string(Config.password_field), check)
   end
   def process(params = %{password: password}, check) do
     params
     |> Map.delete(:password)
-    |> process_map(password, @password_field, check)
+    |> process_map(password, Config.password_field, check)
   end
   def process(_, _) do
     {:error, "no password found"}
@@ -45,7 +37,7 @@ defmodule Wizardry.Auth do
   def verify(nil, _), do: {:error, "no user"}
   def verify(_, nil), do: {:error, "no password"}
   def verify(user, password) when is_map(user) and is_binary(password) do
-    case check(password, Map.get(user, @password_field)) do
+    case check(password, Map.get(user, Config.password_field)) do
       true  -> {:ok, user}
       false -> {:error, "incorrect password"}
     end

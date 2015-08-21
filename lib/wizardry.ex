@@ -1,8 +1,7 @@
 defmodule Wizardry do
   import Plug.Conn
 
-  @config Application.get_env(:wizardry, :config)
-  @session_key Keyword.get(@config, :session_key)
+  alias Wizardry.Config
 
   def init(options), do: options
 
@@ -10,8 +9,8 @@ defmodule Wizardry do
     conn = fetch_session(conn)
 
     conn
-    |> assign_param(@session_key)
-    |> authenticate(@session_key, opts[:authenticate])
+    |> assign_param(Config.session_key)
+    |> authenticate(Config.session_key, opts[:authenticate])
   end
 
   defp assign_param(conn, param) do

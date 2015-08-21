@@ -1,9 +1,6 @@
 defmodule Wizardry.Session do
   import Plug.Conn
 
-  @config Application.get_env(:wizardry, :config)
-  @password_field Keyword.get(@config, :password_field)
-
   def login(conn, user) do
     fetch_session(conn) |> create_session(user)
   end
@@ -13,7 +10,7 @@ defmodule Wizardry.Session do
   end
 
   def sanitize_user(user) do
-    Map.drop(user, [@password_field, :__meta__, :__struct__])
+    Map.drop(user, [Config.password_field, :__meta__, :__struct__])
   end
 
   defp create_session(conn, user) do
