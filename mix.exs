@@ -25,6 +25,6 @@ defmodule Wizardry.Mixfile do
 
   defp deps do
     [{:plug, "~> 1.0"},
-     {:comeonin, "~> 1.1"}]
+     {:comeonin, "~> 2.5"}]
   end
 end
