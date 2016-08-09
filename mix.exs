@@ -4,7 +4,7 @@ defmodule Wizardry.Mixfile do
   def project do
     [app: :wizardry,
      description: "Simple, low-level user account framework for Phoenix Framework",
-     version: "0.0.1",
+     version: "0.0.2",
      elixir: "~> 1.0",
      package: package,
      build_embedded: Mix.env == :prod,
