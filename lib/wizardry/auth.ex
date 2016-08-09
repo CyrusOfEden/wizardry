@@ -1,5 +1,4 @@
 defmodule Wizardry.Auth do
-  alias Comeonin.Password
   alias Wizardry.Config
 
   # API
@@ -11,26 +10,17 @@ defmodule Wizardry.Auth do
     Config.derivation.checkpw(password, hash)
   end
 
-  def strong_password?(password) do
-    Password.strong_password?(password, Config.password_options)
-  end
-
-  def generate_password(length \\ 12) do
-    Password.gen_password(length)
-  end
-
-  def process(params, check \\ true)
-  def process(params = %{"password" => password}, check) do
+  def process(params = %{"password" => password}) do
     params
     |> Map.delete("password")
-    |> process_map(password, Atom.to_string(Config.password_field), check)
+    |> process_map(password, Atom.to_string(Config.password_field))
   end
-  def process(params = %{password: password}, check) do
+  def process(params = %{password: password}) do
     params
     |> Map.delete(:password)
-    |> process_map(password, Config.password_field, check)
+    |> process_map(password, Config.password_field)
   end
-  def process(_, _) do
+  def process(_) do
     {:error, "no password found"}
   end
 
@@ -43,13 +33,7 @@ defmodule Wizardry.Auth do
     end
   end
 
-  defp process_map(params, password, field, false) do
+  defp process_map(params, password, field) do
     {:ok, Map.put_new(params, field, hash(password))}
-  end
-  defp process_map(params, password, field, true) do
-    case strong_password?(password) do
-      true    -> process_map(params, password, field, false)
-      message -> {:error, message}
-    end
   end
 end
