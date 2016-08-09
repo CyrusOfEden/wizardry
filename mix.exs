@@ -14,7 +14,7 @@ defmodule Wizardry.Mixfile do
 
   def package do
     [licenses: ["MIT"],
-     contributors: ["Kash Nouroozi"],
+     maintainers: ["Kash Nouroozi"],
      links: %{"Github" => "https://github.com/knrz/wizardry"}]
   end
 
