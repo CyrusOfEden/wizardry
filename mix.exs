@@ -25,6 +25,7 @@ defmodule Wizardry.Mixfile do
 
   defp deps do
     [{:plug, "~> 1.2"},
-     {:comeonin, "~> 2.5"}]
+     {:comeonin, "~> 2.5"},
+     {:ex_doc, "~> 0.12", only: :dev}]
   end
 end
